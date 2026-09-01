@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Inclusive Health employee compliance training" />
+  <title>Inclusive Health Training | Module 1</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-wrap">
+      <div class="brand-mark" aria-hidden="true">IH</div>
+      <div>
+        <div class="brand-name">Inclusive Health</div>
+        <div class="brand-tagline">A Better Class of Healthcare</div>
+      </div>
+    </div>
+    <button id="learnerButton" class="ghost-button" type="button">Set learner</button>
+  </header>
+
+  <main id="app" class="app-shell" tabindex="-1">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Employee Learning Center</p>
+        <h1>Module 1: Compliance &amp; Legal Foundations</h1>
+        <p class="hero-copy">Interactive, role-based training with knowledge checks, scored assessments, competency sign-offs, and completion records.</p>
+      </div>
+      <div class="hero-stat" aria-live="polite">
+        <span id="overallProgressValue">0%</span>
+        <small>Module 1 progress</small>
+      </div>
+    </section>
+
+    <section id="localTrackingNotice" class="notice notice-info">
+      <strong>Tracking mode:</strong> Completion data is currently stored only on this browser. Use the Records area to export a training record. Centralized employee tracking can be connected later without rebuilding the courses.
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="dashboard-main">
+        <section class="section-card">
+          <div class="section-heading-row">
+            <div>
+              <p class="eyebrow">Your curriculum</p>
+              <h2>Compliance courses</h2>
+            </div>
+            <span id="learnerSummary" class="pill">No learner selected</span>
+          </div>
+          <div id="moduleGrid" class="module-grid"></div>
+        </section>
+      </div>
+
+      <aside class="dashboard-side">
+        <section class="section-card compact-card">
+          <p class="eyebrow">Current learner</p>
+          <div id="learnerCard" class="learner-card empty-state">Set a learner profile to begin.</div>
+        </section>
+
+        <section class="section-card compact-card">
+          <p class="eyebrow">Training record</p>
+          <div id="recordSummary" class="record-summary">No activity yet.</div>
+          <div class="button-stack">
+            <button id="exportCsvButton" class="secondary-button" type="button" disabled>Export CSV record</button>
+            <button id="resetButton" class="text-button danger-text" type="button" disabled>Reset this learner</button>
+          </div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <div id="modalBackdrop" class="modal-backdrop hidden" aria-hidden="true"></div>
+
+  <section id="learnerModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="learnerModalTitle">
+    <div class="modal-header">
+      <div>
+        <p class="eyebrow">Learner profile</p>
+        <h2 id="learnerModalTitle">Who is completing training?</h2>
+      </div>
+      <button class="icon-button" data-close-modal type="button" aria-label="Close">×</button>
+    </div>
+    <form id="learnerForm" class="form-grid">
+      <label>
+        Employee name
+        <input id="learnerName" name="name" autocomplete="name" required maxlength="80" />
+      </label>
+      <label>
+        Employee ID or initials <span class="optional">optional</span>
+        <input id="learnerId" name="employeeId" maxlength="40" />
+      </label>
+      <label>
+        Role
+        <select id="learnerRole" name="role" required>
+          <option value="">Choose a role</option>
+          <option value="reception">Reception / Front Desk</option>
+          <option value="ma">Medical Assistant / Clinical Support</option>
+          <option value="provider">Provider</option>
+          <option value="management">Management / Leadership</option>
+        </select>
+      </label>
+      <div class="modal-actions">
+        <button class="primary-button" type="submit">Save learner</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="courseModal" class="course-modal hidden" role="dialog" aria-modal="true" aria-labelledby="courseTitle">
+    <div class="course-topbar">
+      <div>
+        <p id="courseKicker" class="eyebrow"></p>
+        <h2 id="courseTitle"></h2>
+      </div>
+      <button class="icon-button" data-close-course type="button" aria-label="Exit course">×</button>
+    </div>
+    <div class="course-layout">
+      <nav class="course-nav" aria-label="Course lessons">
+        <div id="courseProgressText" class="course-progress-text"></div>
+        <div class="progress-track"><div id="courseProgressBar" class="progress-bar"></div></div>
+        <div id="lessonNav" class="lesson-nav"></div>
+      </nav>
+      <article id="lessonContent" class="lesson-content" tabindex="-1"></article>
+    </div>
+  </section>
+
+  <template id="moduleCardTemplate">
+    <article class="module-card">
+      <div class="module-card-top">
+        <span class="module-number"></span>
+        <span class="module-status pill"></span>
+      </div>
+      <h3 class="module-title"></h3>
+      <p class="module-description"></p>
+      <div class="module-meta"></div>
+      <button class="module-action primary-button" type="button"></button>
+    </article>
+  </template>
+
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
