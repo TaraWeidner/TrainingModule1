@@ -16,6 +16,14 @@
     return currentLearner()?.records?.["1.2"] || null;
   }
 
+  function setText(node, value) {
+    if (node.textContent !== value) node.textContent = value;
+  }
+
+  function setClass(node, value) {
+    if (node.className !== value) node.className = value;
+  }
+
   function enhanceModule12Card() {
     const cards = [...document.querySelectorAll(".module-card")];
     const card = cards.find(c => c.querySelector(".module-number")?.textContent.trim() === "Module 1.2");
@@ -32,15 +40,15 @@
 
     if (!learner) {
       button.disabled = true;
-      button.textContent = "Set learner first";
-      status.textContent = "Ready after learner setup";
+      setText(button, "Set learner first");
+      setText(status, "Ready after learner setup");
       return;
     }
 
     button.disabled = false;
-    button.textContent = complete ? "Review course" : started ? "Resume course" : "Start course";
-    status.textContent = complete ? "Complete" : started ? "In progress" : "Ready";
-    status.className = `module-status pill ${complete ? "complete" : started ? "progress" : "ready"}`;
+    setText(button, complete ? "Review course" : started ? "Resume course" : "Start course");
+    setText(status, complete ? "Complete" : started ? "In progress" : "Ready");
+    setClass(status, `module-status pill ${complete ? "complete" : started ? "progress" : "ready"}`);
 
     if (!button.dataset.module12Bound) {
       button.dataset.module12Bound = "true";
