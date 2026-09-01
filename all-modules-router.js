@@ -23,8 +23,16 @@
     }
   }
 
+  function setText(node, value) {
+    if (node && node.textContent !== value) node.textContent = value;
+  }
+
+  function setClass(node, value) {
+    if (node && node.className !== value) node.className = value;
+  }
+
   function activateCards() {
-    const cards = [...document.querySelectorAll(".module-card")];
+    const cards = document.querySelectorAll(".module-card");
 
     cards.forEach(card => {
       const numberText = card.querySelector(".module-number")?.textContent.trim() || "";
@@ -32,39 +40,48 @@
       if (!match) return;
 
       const id = match[1];
-      if (!routes[id]) return;
+      const route = routes[id];
+      if (!route) return;
 
       const button = card.querySelector(".module-action");
       const status = card.querySelector(".module-status");
       if (!button || !status) return;
 
-      button.disabled = false;
-      button.textContent = id === "1.2" ? button.textContent.replace("Coming next", "Start course") : "Open module";
+      if (button.disabled) button.disabled = false;
 
-      if (id !== "1.2") {
-        status.textContent = "Active";
-        status.className = "module-status pill ready";
+      if (id === "1.2") {
+        if (button.textContent === "Coming next") setText(button, "Start course");
+        if (status.textContent === "Curriculum loaded") {
+          setText(status, "Ready");
+          setClass(status, "module-status pill ready");
+        }
+      } else {
+        setText(button, "Open module");
+        setText(status, "Active");
+        setClass(status, "module-status pill ready");
       }
 
-      if (!button.dataset.allModulesBound) {
-        button.dataset.allModulesBound = "true";
-        button.addEventListener("click", event => {
-          event.preventDefault();
-          event.stopImmediatePropagation();
+      if (button.dataset.allModulesBound === "true") return;
+      button.dataset.allModulesBound = "true";
+      button.addEventListener("click", event => {
+        event.preventDefault();
+        event.stopImmediatePropagation();
 
-          if (!currentLearnerExists()) {
-            const learnerButton = document.getElementById("learnerButton");
-            learnerButton?.click();
-            return;
-          }
+        if (!currentLearnerExists()) {
+          document.getElementById("learnerButton")?.click();
+          return;
+        }
 
-          window.location.href = routes[id];
-        }, true);
-      }
+        window.location.assign(route);
+      }, true);
     });
   }
 
   activateCards();
-  const observer = new MutationObserver(activateCards);
-  observer.observe(document.body, { childList: true, subtree: true });
+
+  const grid = document.getElementById("moduleGrid");
+  if (grid) {
+    const observer = new MutationObserver(() => activateCards());
+    observer.observe(grid, { childList: true, subtree: true });
+  }
 })();
