@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inclusive Health Training | Module</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-wrap">
+      <div class="brand-mark" aria-hidden="true">IH</div>
+      <div>
+        <div class="brand-name">Inclusive Health</div>
+        <div class="brand-tagline">A Better Class of Healthcare</div>
+      </div>
+    </div>
+    <a class="ghost-button" href="index.html">Back to dashboard</a>
+  </header>
+  <main class="app-shell">
+    <section class="section-card" style="max-width:900px;margin:32px auto;">
+      <p class="eyebrow">Employee Learning Center</p>
+      <h1 id="moduleTitle">Module</h1>
+      <p id="moduleDescription" class="hero-copy"></p>
+      <div id="moduleStatus" class="notice notice-info"></div>
+      <div class="comparison-grid" style="margin-top:24px;">
+        <div class="mini-card"><h3>Curriculum status</h3><p>The source curriculum for this module is loaded and this page is active.</p></div>
+        <div class="mini-card"><h3>Tracking</h3><p>This module page is available now; full scored lesson conversion can be added without changing the dashboard link.</p></div>
+      </div>
+      <div class="lesson-actions" style="margin-top:28px;">
+        <a class="secondary-button" href="index.html">Return to dashboard</a>
+      </div>
+    </section>
+  </main>
+  <script src="content.js"></script>
+  <script>
+    (() => {
+      const params = new URLSearchParams(location.search);
+      const id = params.get('m');
+      const module = window.TRAINING_CATALOG?.modules?.find(item => item.id === id);
+      if (!module) {
+        document.getElementById('moduleTitle').textContent = 'Module not found';
+        document.getElementById('moduleDescription').textContent = 'Return to the dashboard and select a Module 1 course.';
+        document.getElementById('moduleStatus').textContent = 'This course identifier could not be resolved.';
+        return;
+      }
+      document.title = `Inclusive Health Training | Module ${module.id}`;
+      document.getElementById('moduleTitle').textContent = `Module ${module.id}: ${module.title}`;
+      document.getElementById('moduleDescription').textContent = module.description;
+      document.getElementById('moduleStatus').innerHTML = `<strong>Active module:</strong> ${module.audience} • ${module.estimate}`;
+    })();
+  </script>
+</body>
+</html>
