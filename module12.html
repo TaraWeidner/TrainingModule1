@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Inclusive Health Module 1.2 OSHA and HazMat training" />
+  <title>Module 1.2 | OSHA & HazMat | Inclusive Health Training</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .course-page { max-width: 1180px; margin: 0 auto; padding: 28px 22px 64px; }
+    .course-page-head { display:flex; justify-content:space-between; gap:24px; align-items:flex-start; margin-bottom:22px; }
+    .course-page-head h1 { margin:.25rem 0 .5rem; }
+    .course-page-grid { display:grid; grid-template-columns:280px minmax(0,1fr); gap:22px; align-items:start; }
+    .course-sidebar { position:sticky; top:18px; }
+    .course-sidebar .section-card { padding:18px; }
+    .module12-nav { display:grid; gap:8px; margin-top:14px; }
+    .module12-nav button { width:100%; text-align:left; border:1px solid var(--border-color,#d9dfe5); background:transparent; border-radius:10px; padding:10px 12px; cursor:pointer; }
+    .module12-nav button.active { border-color:var(--brand,#246b68); font-weight:700; }
+    .module12-nav button.done::after { content:" ✓"; }
+    .course-main { min-width:0; }
+    .course-main .section-card { padding:28px; }
+    .course-progress-line { height:9px; background:#e9edef; border-radius:999px; overflow:hidden; margin:10px 0 6px; }
+    .course-progress-line > div { height:100%; width:0; background:var(--brand,#246b68); transition:width .2s ease; }
+    .lesson-copy h2 { margin-top:.2rem; }
+    .lesson-copy h3 { margin-top:1.4rem; }
+    .lesson-copy li { margin:.4rem 0; }
+    .lesson-copy table { width:100%; border-collapse:collapse; margin:16px 0; }
+    .lesson-copy th,.lesson-copy td { border-bottom:1px solid #dfe4e8; padding:10px; text-align:left; vertical-align:top; }
+    .knowledge-check { margin-top:24px; padding:18px; border:1px solid #dfe4e8; border-radius:14px; }
+    .choice-list { display:grid; gap:10px; margin:12px 0; }
+    .choice-row { display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border:1px solid #dfe4e8; border-radius:10px; cursor:pointer; }
+    .feedback { margin-top:10px; padding:10px 12px; border-radius:10px; }
+    .feedback.correct { background:#eaf7ef; }
+    .feedback.incorrect { background:#fff0ee; }
+    .lesson-actions { margin-top:26px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .scenario-card,.quiz-question { padding:16px 0; border-bottom:1px solid #e3e7ea; }
+    .score-big { font-size:3rem; font-weight:800; margin:.25rem 0; }
+    .certificate { text-align:center; border:2px solid #cfd8dc; border-radius:18px; padding:34px; margin:12px 0; }
+    .certificate-name { font-size:2rem; font-weight:800; margin:14px 0; }
+    .source-note { font-size:.92rem; opacity:.78; margin-top:22px; }
+    @media (max-width: 820px) {
+      .course-page-grid { grid-template-columns:1fr; }
+      .course-sidebar { position:static; }
+      .course-page-head { flex-direction:column; }
+    }
+    @media print {
+      .site-header,.course-sidebar,.course-page-head .secondary-button,.lesson-actions,#printCertificate { display:none !important; }
+      .course-page-grid { display:block; }
+      .course-page { padding:0; }
+      .course-main .section-card { box-shadow:none; border:0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-wrap">
+      <div class="brand-mark" aria-hidden="true">IH</div>
+      <div>
+        <div class="brand-name">Inclusive Health</div>
+        <div class="brand-tagline">A Better Class of Healthcare</div>
+      </div>
+    </div>
+    <a class="ghost-button" href="index.html">Training dashboard</a>
+  </header>
+
+  <main class="course-page">
+    <div class="course-page-head">
+      <div>
+        <p class="eyebrow">Module 1.2 • Compliance &amp; Legal Foundations</p>
+        <h1>OSHA &amp; HazMat</h1>
+        <p>Hazard communication, SDS use, PPE, chemical spills, hazardous waste, exposure response, and role-based application.</p>
+      </div>
+      <a class="secondary-button" href="index.html">Exit to dashboard</a>
+    </div>
+
+    <div id="noLearner" class="notice notice-warning hidden">
+      No learner profile is selected. Return to the dashboard and set a learner before starting Module 1.2.
+    </div>
+
+    <div class="course-page-grid">
+      <aside class="course-sidebar">
+        <section class="section-card">
+          <p class="eyebrow">Current learner</p>
+          <div id="learnerIdentity">Loading…</div>
+          <div class="course-progress-line"><div id="progressBar"></div></div>
+          <div id="progressText">0% complete</div>
+          <nav id="lessonNav" class="module12-nav" aria-label="Module 1.2 lessons"></nav>
+        </section>
+      </aside>
+
+      <section class="course-main">
+        <article id="lessonHost" class="section-card lesson-copy" tabindex="-1"></article>
+      </section>
+    </div>
+  </main>
+
+  <script src="module12.js"></script>
+</body>
+</html>
