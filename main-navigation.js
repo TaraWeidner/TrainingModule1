@@ -43,19 +43,24 @@
       if (!match) return;
 
       const id = match[1];
-      if (id === "1.1") return; // Module 1.1 is handled by app.js.
-
-      const route = routes[id];
       const button = card.querySelector(".module-action");
       const status = card.querySelector(".module-status");
-      if (!route || !button || !status) return;
+      if (!button || !status) return;
+
+      // Keep every dashboard action label consistent, regardless of progress state.
+      button.textContent = "Begin Module";
+
+      // Module 1.1 keeps its existing app.js click handler.
+      if (id === "1.1") return;
+
+      const route = routes[id];
+      if (!route) return;
 
       const record = moduleRecord(id);
       const complete = !!record?.completedAt;
       const started = !!record && ((record.lessonsDone?.length || 0) > 0 || (record.quizAttempts?.length || 0) > 0);
 
       button.disabled = false;
-      button.textContent = complete ? "Review course" : started ? "Resume course" : (id === "1.2" ? "Start course" : "Open module");
       status.textContent = complete ? "Complete" : started ? "In progress" : "Ready";
       status.className = `module-status pill ${complete ? "complete" : started ? "progress" : "ready"}`;
 
